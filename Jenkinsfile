@@ -4,15 +4,15 @@ pipeline {
     stages {
         stage('Build with Maven') {
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    def imageTag = "java-app:${env.BUILD_NUMBER}"
-                    sh "docker build -t ${imageTag} ."
+                    def imageTag = "java-app:%BUILD_NUMBER%"
+                    bat "docker build -t ${imageTag} ."
                 }
             }
         }
