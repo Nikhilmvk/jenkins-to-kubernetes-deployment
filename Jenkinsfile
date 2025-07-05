@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/Nikhilmvk/jenkins-to-kubernetes-deployment.git'
-            }
-        }
-
         stage('Build with Maven') {
             steps {
                 sh 'mvn clean package'
@@ -24,4 +18,3 @@ pipeline {
         }
     }
 }
-
