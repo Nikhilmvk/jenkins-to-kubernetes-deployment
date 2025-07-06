@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven3.9.10'
+        maven 'Maven3.9.10'  // Make sure this is correctly configured in Jenkins Global Tool Configuration
     }
 
     environment {
-        SONAR_TOKEN = credentials('sonar-token')
+        SONAR_TOKEN = credentials('sonar-token') // 👈 This must match the ID of the token in Jenkins Credentials
     }
 
     stages {
@@ -18,8 +18,8 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('MySonarQube') {
-                    bat "mvn sonar:sonar -Dsonar.login=%SONAR_TOKEN%"
+                withSonarQubeEnv('MySonarQube') { // 👈 Must match Jenkins SonarQube server name
+                    bat "mvn sonar:sonar -Dsonar.projectKey=java-app-pipeline -Dsonar.login=${sonar-token}"
                 }
             }
         }
