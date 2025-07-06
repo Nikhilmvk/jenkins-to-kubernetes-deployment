@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven3.9.10'   // 👈 Match the name from Global Tool Config
+    }
+
     stages {
         stage('Build with Maven') {
             steps {
@@ -10,10 +14,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    def imageTag = "java-app:%BUILD_NUMBER%"
-                    bat "docker build -t ${imageTag} ."
-                }
+                bat 'docker build -t myapp .'
             }
         }
     }
