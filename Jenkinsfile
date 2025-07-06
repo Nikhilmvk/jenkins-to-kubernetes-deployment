@@ -32,7 +32,7 @@ pipeline {
 
         stage('Trivy Scan') {
             steps {
-                bat 'C:\\Users\\USER\\Downloads\\trivy_0.64.1_windows-64bit\\trivy.exe image --scanners vuln --timeout 10m myapp'
+                bat 'C:\\Tools\\Trivy\\trivy.exe image --scanners vuln --timeout 10m myapp'
             }
         }
     }
