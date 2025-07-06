@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        SONAR_TOKEN = credentials('sonar-token') // 👈 This must match the ID of the token in Jenkins Credentials
+        SONAR_TOKEN = credentials('sonar-token') // ID from Jenkins > Manage Credentials
     }
 
     stages {
@@ -18,8 +18,8 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('MySonarQube') { // 👈 Must match Jenkins SonarQube server name
-                    bat "mvn sonar:sonar -Dsonar.projectKey=java-app-pipeline -Dsonar.login=${sonar-token}"
+                withSonarQubeEnv('MySonarQube') { // Matches Jenkins > Configure System > SonarQube name
+                    bat "mvn sonar:sonar -Dsonar.projectKey=java-app-pipeline -Dsonar.login=%SONAR_TOKEN%"
                 }
             }
         }
