@@ -19,7 +19,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('MySonarQube') {
-                    bat "mvn sonar:sonar -Dsonar.projectKey=java-app-pipeline -Dsonar.token=%SONAR_TOKEN%"
+                    bat "mvn sonar:sonar -Dsonar.projectKey=java-app-pipeline -Dsonar.login=%SONAR_TOKEN%"
                 }
             }
         }
@@ -27,6 +27,12 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 bat 'docker build -t myapp .'
+            }
+        }
+
+        stage('Trivy Scan') {
+            steps {
+                bat 'trivy image myapp'
             }
         }
     }
